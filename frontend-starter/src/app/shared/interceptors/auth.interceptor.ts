@@ -1,16 +1,27 @@
 import { inject } from '@angular/core';
-import { HttpInterceptorFn } from '@angular/common/http';
+import { HttpErrorResponse, HttpInterceptorFn } from '@angular/common/http';
+import { Router } from '@angular/router';
+import { catchError, throwError } from 'rxjs';
 import { AuthService } from '../services/auth.service';
 
-/** Adds the bearer token to protected API requests. */
+/** Adds the bearer token to protected API requests and handles 401 responses. */
 export const authInterceptor: HttpInterceptorFn = (request, next) => {
-  const token = inject(AuthService).token();
+  const auth = inject(AuthService);
+  const router = inject(Router);
+  const token = auth.token();
 
-  return next(
-    token
-      ? request.clone({
-          setHeaders: { Authorization: `Bearer ${token}` },
-        })
-      : request,
+  const authorizedRequest = token
+    ? request.clone({ setHeaders: { Authorization: `Bearer ${token}` } })
+    : request;
+
+  return next(authorizedRequest).pipe(
+    catchError((error: unknown) => {
+      if (error instanceof HttpErrorResponse && error.status === 401) {
+        console.warn('[authInterceptor] Session expirée, déconnexion');
+        auth.logout();
+        void router.navigateByUrl('/login');
+      }
+      return throwError(() => error);
+    }),
   );
 };

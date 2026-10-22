@@ -8,37 +8,121 @@
   <div class="grid">
     <article class="card">
       <h2>Importer</h2>
-      <label>Titre<input [formControl]="title" /></label>
-      <label>Fichier audio<input type="file" accept="audio/*" (change)="choose($event)" /></label>
-      <button type="button" (click)="upload()" [disabled]="!file">Envoyer</button>
+      <label>Titre<input [formControl]="title" [disabled]="uploading()" /></label>
+      <label>
+        Fichier audio
+        <input
+          type="file"
+          accept="audio/*"
+          (change)="choose($event)"
+          [disabled]="uploading()"
+        />
+      </label>
+
+      @if (uploadError()) {
+        <p class="error" role="alert">{{ uploadError() }}</p>
+      }
+      @if (uploadSuccess()) {
+        <p class="success" role="status">{{ uploadSuccess() }}</p>
+      }
+
+      @if (uploading()) {
+        <div class="progress-bar" role="progressbar" [attr.aria-valuenow]="uploadProgress()">
+          <div class="progress-fill" [style.width.%]="uploadProgress()"></div>
+        </div>
+        <p>{{ uploadProgress() }} %</p>
+      }
+
+      <button type="button" (click)="upload()" [disabled]="!file || uploading()">
+        @if (uploading()) {
+          Envoi en cours… {{ uploadProgress() }} %
+        } @else {
+          Envoyer
+        }
+      </button>
     </article>
 
     <article class="card">
-      <div class="row">
+           <div class="row">
         <h2>Mes pistes</h2>
         <button type="button" (click)="load()">Actualiser</button>
       </div>
+
+      <input
+        class="search-input"
+        type="search"
+        placeholder="Rechercher un titre…"
+        [formControl]="search"
+        aria-label="Rechercher une piste par titre"
+      />
+
       @if (loading()) {
         <p>Chargement…</p>
       }
-      @for (track of tracks(); track track.id) {
-        <div class="track">
-          <div>
-            <b>{{ track.title }}</b>
-            <small>{{ track.originalName }} · {{ track.size }} Ko</small>
-          </div>
-          <button type="button" (click)="play(track)" [attr.aria-label]="'Lire ' + track.title">▶</button>
-        </div>
-      } @empty {
-        <p>Aucune piste.</p>
+      @if (error()) {
+        <p class="error" role="alert">{{ error() }}</p>
       }
+
+            <div class="track-list">
+        @for (track of filteredTracks(); track track.id) {
+          <article class="track-card">
+            <div class="track-info">
+              <b>{{ track.title }}</b>
+              <div class="meta-row">
+  <span class="badge">{{ formatBadge(track.mimeType) }}</span>
+  <small>
+    {{ track.originalName }} · {{ (track.size / 1024 / 1024).toFixed(2) }} Mo ·
+    {{ track.createdAt.slice(0, 10) }}
+  </small>
+</div>
+            </div>
+            <div class="track-actions">
+              <button
+  type="button"
+  class="icon-btn play"
+  (click)="play(track)"
+  [attr.aria-label]="'Lire ' + track.title"
+  title="Lire"
+>
+  ▶
+</button>
+              <button
+  type="button"
+  class="danger icon-btn"
+  (click)="remove(track)"
+  [disabled]="isDeleting(track.id)"
+  [attr.aria-label]="'Supprimer ' + track.title"
+  title="Supprimer"
+>
+  @if (isDeleting(track.id)) {
+    ⏳
+  } @else {
+    🗑️
+  }
+</button>
+            </div>
+          </article>
+        } @empty {
+          <p>Aucune piste.</p>
+        }
+      </div>
+
       <div class="pager">
         <button type="button" (click)="go(page() - 1)" [disabled]="page() === 1">Préc.</button>
         <span>Page {{ page() }} / {{ pages() }}</span>
         <button type="button" (click)="go(page() + 1)" [disabled]="page() === pages()">Suiv.</button>
       </div>
+
+      @if (audioError()) {
+        <p class="error" role="alert">{{ audioError() }}</p>
+      }
       @if (audioUrl()) {
-        <audio [src]="audioUrl()" controls autoplay></audio>
+        <div class="player">
+          @if (nowPlaying(); as current) {
+            <p>Lecture en cours : <b>{{ current.title }}</b></p>
+          }
+          <audio [src]="audioUrl()" controls autoplay></audio>
+        </div>
       }
     </article>
   </div>

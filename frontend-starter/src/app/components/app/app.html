@@ -3,13 +3,18 @@
     <b>Guitar Practice Cloud</b>
     <small>Le cloud qui manque à votre ampli</small>
   </div>
-  <nav aria-label="Navigation principale">
+<nav aria-label="Navigation principale">
     <a routerLink="/tracks">Backing tracks</a>
-    <a routerLink="/profile">Profil</a>
-    <a routerLink="/login">Connexion</a>
+    @if (auth.currentUser(); as user) {
+      <a routerLink="/profile">{{ user.name }}</a>
+      <button type="button" (click)="logout()">Déconnexion</button>
+    } @else {
+      <a routerLink="/login">Connexion</a>
+    }
   </nav>
 </header>
 
 <main>
   <router-outlet />
+  <app-snackbar></app-snackbar>
 </main>

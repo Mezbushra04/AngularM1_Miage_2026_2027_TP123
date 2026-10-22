@@ -1,13 +1,34 @@
 <section class="card">
   <h1>Créer un compte</h1>
   <form [formGroup]="form" (ngSubmit)="submit()">
-    <label>Nom<input formControlName="name" /></label>
-    <label>Email<input type="email" formControlName="email" /></label>
-    <label>Mot de passe<input type="password" formControlName="password" /></label>
+    <label>
+      Nom
+      <input formControlName="name" />
+    </label>
+    @if (form.controls.name.invalid && form.controls.name.touched) {
+      <p class="error">Le nom est obligatoire.</p>
+    }
+
+    <label>
+      Email
+      <input type="email" formControlName="email" />
+    </label>
+    @if (form.controls.email.invalid && form.controls.email.touched) {
+      <p class="error">Entrez un email valide.</p>
+    }
+
+    <label>
+      Mot de passe
+      <input type="password" formControlName="password" />
+    </label>
+    @if (form.controls.password.invalid && form.controls.password.touched) {
+      <p class="error">Le mot de passe doit contenir au moins 8 caractères.</p>
+    }
+
     <button type="submit">Créer mon compte</button>
   </form>
   @if (error()) {
     <p class="error">{{ error() }}</p>
   }
-  <p><a routerLink="/login">Déjà inscrit ?</a></p>
+  <p><a routerLink="/login">J'ai déjà un compte</a></p>
 </section>
