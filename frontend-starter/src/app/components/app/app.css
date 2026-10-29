@@ -1,1 +1,58 @@
-:host { display: block; }
+:host {
+  display: block;
+}
+
+.music-bg {
+  position: fixed;
+  inset: 0;
+  overflow: hidden;
+  z-index: -1;
+  pointer-events: none;
+}
+
+.music-bg .note {
+  position: absolute;
+  bottom: -10%;
+  font-size: 2.5rem;
+  color: #b31865;
+  opacity: 0.14;
+  animation: floatUp linear infinite;
+}
+
+.music-bg .note:nth-child(1) { left: 5%;  font-size: 2rem;   animation-duration: 18s; animation-delay: 0s; }
+.music-bg .note:nth-child(2) { left: 18%; font-size: 3.2rem; animation-duration: 24s; animation-delay: 3s; }
+.music-bg .note:nth-child(3) { left: 35%; font-size: 1.8rem; animation-duration: 16s; animation-delay: 6s; }
+.music-bg .note:nth-child(4) { left: 55%; font-size: 2.8rem; animation-duration: 22s; animation-delay: 1s; }
+.music-bg .note:nth-child(5) { left: 72%; font-size: 2.2rem; animation-duration: 20s; animation-delay: 8s; }
+.music-bg .note:nth-child(6) { left: 88%; font-size: 3rem;   animation-duration: 26s; animation-delay: 4s; }
+
+@keyframes floatUp {
+  0% {
+    transform: translateY(0) rotate(0deg);
+    opacity: 0;
+  }
+  10% {
+    opacity: 0.12;
+  }
+  90% {
+    opacity: 0.12;
+  }
+  100% {
+    transform: translateY(-115vh) rotate(25deg);
+    opacity: 0;
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  .music-bg .note {
+    color: #a78bfa;
+    opacity: 0.08;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .music-bg .note {
+    animation: none;
+    display: none;
+  }
+}

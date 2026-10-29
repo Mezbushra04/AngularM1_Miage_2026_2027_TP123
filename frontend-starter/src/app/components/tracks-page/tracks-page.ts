@@ -18,11 +18,17 @@ export class TracksPageComponent implements OnDestroy {
   private readonly snackbar = inject(SnackbarService);
 
   readonly tracks = signal<Track[]>([]);
-    readonly filteredTracks = computed(() => {
-    const term = this.search.value.trim().toLowerCase();
-    if (!term) return this.tracks();
-    return this.tracks().filter((track) => track.title.toLowerCase().includes(term));
+  readonly searchTerm = signal('');
+  readonly searchResults = signal<Track[] | null>(null);
+  readonly searching = signal(false);
+
+  readonly filteredTracks = computed(() => {
+    const results = this.searchResults();
+    return results !== null ? results : this.tracks();
   });
+
+  readonly isSearching = computed(() => this.searchTerm().trim().length > 0);
+
   readonly page = signal(1);
   readonly pages = signal(1);
   readonly loading = signal(false);
@@ -40,11 +46,36 @@ export class TracksPageComponent implements OnDestroy {
   readonly audioError = signal('');
 
   readonly title = new FormControl('', { nonNullable: true });
-    readonly search = new FormControl('', { nonNullable: true });
+  readonly search = new FormControl('', { nonNullable: true });
   file?: File;
 
   constructor() {
     this.load();
+
+    this.search.valueChanges.subscribe((value) => {
+      const term = value.trim();
+      this.searchTerm.set(term);
+
+      if (!term) {
+        this.searchResults.set(null);
+        return;
+      }
+
+      this.searching.set(true);
+      this.service.list(1, 1000).subscribe({
+        next: (response) => {
+          const lower = term.toLowerCase();
+          this.searchResults.set(
+            response.items.filter((track) => track.title.toLowerCase().includes(lower)),
+          );
+          this.searching.set(false);
+        },
+        error: (error: { error?: { message?: string } }) => {
+          console.error('[TracksPage] Recherche impossible', error);
+          this.searching.set(false);
+        },
+      });
+    });
   }
 
   ngOnDestroy(): void {
@@ -157,7 +188,8 @@ export class TracksPageComponent implements OnDestroy {
       },
     });
   }
-    formatBadge(mimeType: string): string {
+
+  formatBadge(mimeType: string): string {
     const map: Record<string, string> = {
       'audio/mpeg': 'MP3',
       'audio/wav': 'WAV',

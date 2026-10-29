@@ -1,69 +1,89 @@
 :host {
   --bg-card: #ffffff;
   --bg-page: #f4f4f4;
-  --bg-track: #fafafa;
-  --border-color: #ececec;
-  --text-main: #1a1a1a;
-  --text-muted: #6b6b6b;
-  --accent: #1fa172;
-  --accent-dark: #0f6b53;
+  --bg-track: #faf9fd;
+  --border-color: #ebe6f5;
+  --text-main: #201a2b;
+  --text-muted: #6f6680;
+  --accent: #8b5cf6;
+  --accent-dark: #6d28d9;
+  --accent-light: #c4b5fd;
   display: block;
   font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
 }
 
 @media (prefers-color-scheme: dark) {
   :host {
-    --bg-card: #1e1e1e;
+    --bg-card: #1c1626;
     --bg-page: #121212;
-    --bg-track: #262626;
-    --border-color: #333333;
-    --text-main: #f0f0f0;
-    --text-muted: #a0a0a0;
-    --accent: #2ecb8f;
-    --accent-dark: #1fa172;
+    --bg-track: #241c33;
+    --border-color: #352a47;
+    --text-main: #f2eefc;
+    --text-muted: #b2a7c7;
+    --accent: #a78bfa;
+    --accent-dark: #8b5cf6;
+    --accent-light: #7c3aed;
   }
 }
 
 .hero {
-  background: linear-gradient(135deg, #0f6b53 0%, #14875f 45%, #1fa172 100%);
+  background: linear-gradient(135deg, #4c1d95 0%, #7c3aed 50%, #a78bfa 100%);
   color: white;
-  border-radius: 20px;
+  border-radius: 22px;
   padding: 3rem 2.25rem;
   margin-bottom: 1.75rem;
-  box-shadow: 0 12px 32px rgba(15, 107, 83, 0.28);
+  box-shadow: 0 14px 36px rgba(109, 40, 217, 0.35);
   position: relative;
   overflow: hidden;
+}
+
+.hero::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -10%;
+  width: 320px;
+  height: 320px;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.14) 0%, transparent 70%);
+  border-radius: 50%;
 }
 
 .hero::after {
   content: '';
   position: absolute;
-  top: -40%;
-  right: -10%;
-  width: 280px;
-  height: 280px;
-  background: radial-gradient(circle, rgba(255, 255, 255, 0.12) 0%, transparent 70%);
+  bottom: -40%;
+  right: -5%;
+  width: 260px;
+  height: 260px;
+  background: radial-gradient(circle, rgba(196, 181, 253, 0.25) 0%, transparent 70%);
   border-radius: 50%;
 }
 
 .hero .eyebrow {
   text-transform: uppercase;
-  letter-spacing: 0.14em;
+  letter-spacing: 0.16em;
   font-size: 0.78rem;
-  font-weight: 600;
+  font-weight: 700;
   opacity: 0.85;
   margin: 0 0 0.6rem;
+  position: relative;
 }
 
 .hero h1 {
-  font-size: 2.4rem;
+  font-size: 2.5rem;
   margin: 0 0 0.6rem;
   font-weight: 800;
+  background: linear-gradient(90deg, #ffffff, #e9d5ff);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  position: relative;
 }
 
 .hero p {
-  opacity: 0.9;
+  opacity: 0.92;
   margin: 0;
+  position: relative;
 }
 
 .grid {
@@ -82,7 +102,7 @@
   background: var(--bg-card);
   border-radius: 18px;
   padding: 1.75rem;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.07);
+  box-shadow: 0 4px 24px rgba(109, 40, 217, 0.08);
   border: 1px solid var(--border-color);
   color: var(--text-main);
 }
@@ -90,6 +110,7 @@
 .card h2 {
   margin-top: 0;
   font-size: 1.3rem;
+  color: var(--text-main);
 }
 
 .row {
@@ -124,7 +145,7 @@ input[type="search"],
 input:focus {
   outline: none;
   border-color: var(--accent);
-  box-shadow: 0 0 0 3px rgba(31, 161, 114, 0.15);
+  box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.18);
 }
 
 button {
@@ -142,16 +163,16 @@ button[type="submit"],
   font-weight: 600;
   font-size: 0.95rem;
   transition: transform 0.12s ease, box-shadow 0.12s ease;
-  box-shadow: 0 2px 8px rgba(31, 161, 114, 0.3);
+  box-shadow: 0 4px 14px rgba(139, 92, 246, 0.35);
 }
 
 .card > button:not(.icon-btn):hover:not(:disabled) {
   transform: translateY(-1px);
-  box-shadow: 0 4px 14px rgba(31, 161, 114, 0.4);
+  box-shadow: 0 6px 18px rgba(139, 92, 246, 0.45);
 }
 
 .card > button:not(.icon-btn):disabled {
-  background: #b8c4bf;
+  background: #cbbfe0;
   box-shadow: none;
   cursor: not-allowed;
 }
@@ -166,7 +187,12 @@ button[type="submit"],
   background: var(--bg-card);
   color: var(--text-main);
 }
-
+.search-hint {
+  text-align: center;
+  color: var(--text-muted);
+  margin-top: 1.25rem;
+  font-size: 0.9rem;
+}
 .track-list {
   display: flex;
   flex-direction: column;
@@ -194,7 +220,7 @@ button[type="submit"],
 
 .track-card:hover {
   transform: translateY(-3px);
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 10px 24px rgba(109, 40, 217, 0.15);
   border-color: var(--accent);
 }
 
@@ -203,6 +229,8 @@ button[type="submit"],
   flex-direction: column;
   gap: 0.35rem;
   min-width: 0;
+  flex: 1 1 auto;
+  overflow: hidden;
 }
 
 .track-info b {
@@ -214,11 +242,11 @@ button[type="submit"],
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  flex-wrap: wrap;
+  min-width: 0;
 }
 
 .badge {
-  background: var(--accent);
+  background: linear-gradient(135deg, var(--accent-dark), var(--accent));
   color: white;
   font-size: 0.7rem;
   font-weight: 700;
@@ -229,11 +257,14 @@ button[type="submit"],
 }
 
 .track-info small {
+  display: block;
   color: var(--text-muted);
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-  max-width: 100%;
+  min-width: 0;
+  width: 0;
+  flex: 1 1 0%;
 }
 
 .track-actions {
@@ -256,7 +287,7 @@ button[type="submit"],
 
 .icon-btn:hover:not(:disabled) {
   transform: scale(1.1);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 4px 12px rgba(109, 40, 217, 0.2);
 }
 
 .icon-btn:active:not(:disabled) {
@@ -264,7 +295,7 @@ button[type="submit"],
 }
 
 .play {
-  background: #e0f2ec;
+  background: #ede6fb;
   color: var(--accent-dark);
 }
 
@@ -286,8 +317,8 @@ button[type="submit"],
 }
 
 .success {
-  color: #1b5e20;
-  background: #e8f5e9;
+  color: #5b21b6;
+  background: #f1e9fd;
   padding: 0.6rem 0.9rem;
   border-radius: 10px;
   font-size: 0.9rem;
@@ -298,6 +329,7 @@ button[type="submit"],
   padding: 1.1rem;
   background: var(--bg-track);
   border-radius: 14px;
+  border: 1px solid var(--border-color);
 }
 
 .player audio {
@@ -322,11 +354,13 @@ button[type="submit"],
   padding: 0.5rem 1.1rem;
   border-radius: 999px;
   font-weight: 600;
-  transition: background 0.12s ease;
+  transition: background 0.12s ease, border-color 0.12s ease;
 }
 
 .pager button:hover:not(:disabled) {
-  background: var(--border-color);
+  background: var(--accent-light);
+  border-color: var(--accent);
+  color: white;
 }
 
 .pager button:disabled {
