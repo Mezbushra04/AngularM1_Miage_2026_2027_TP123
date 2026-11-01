@@ -40,8 +40,8 @@ du design de l'interface. Je travaille seule (monôme).
 
 ## Checkpoint Network
 - Connexion réussie : `POST /api/auth/login` → 200.
-- Connexion refusée : `POST /api/auth/login` → 401 ![401](captures/network-connexion-refusee.png)
-- Lecture du profil : `GET /api/users/me` → 200 ![me](captures/network-me-entetes.png)
+- Connexion refusée : `POST /api/auth/login` → 401 ![401](RenduTD/TP1/network-connexion-refusee.png)
+- Lecture du profil : `GET /api/users/me` → 200 ![me](RenduTD/TP1/network-me-entetes.png)
 
 ## Signal vs localStorage
 Un Signal est un état réactif en mémoire : il met l'interface à jour automatiquement mais disparaît au
@@ -57,13 +57,13 @@ Dans le terminal où `npm start` a été lancé pour `backend/` : lignes `[http]
 
 ## Mission 2 — Bibliothèque paginée
 - **Constat** : `TrackService.list(page, limit)`, les Signals et les boutons Préc./Suiv. existaient déjà dans le projet fourni (relu et vérifié). J'ai ajouté le Signal `error`.
-- **Preuve** : `GET /api/tracks?page=2&limit=5` à chaque changement de page ![page2](captures/network-pagination-page2.png)
+- **Preuve** : `GET /api/tracks?page=2&limit=5` à chaque changement de page ![page2](RenduTD/TP2/network-pagination-page2.png)
 
 ## Mission 3 — Upload et lecture
 - **Proposé par l'agent** : validation du fichier avant envoi (type, 25 Mo), états d'envoi, messages succès/erreur, cards, révocation de l'`ObjectURL` dans `ngOnDestroy`.
 - **Ce que j'ai fait** : application, tests (upload, lecture, pagination), captures Network.
 - **Fichiers** : `tracks-page.ts`, `tracks-page.html`, `tracks-page.css`.
-- **Preuves** : upload multipart avec `audio` et `title` ![upload](captures/network-upload-multipart.png) ; réponse audio `Content-Type: audio/mpeg` ![audio](captures/network-audio-content-type.png).
+- **Preuves** : upload multipart avec `audio` et `title` ![upload](RenduTD/TP2/network-upload-multipart.png) ; réponse audio `Content-Type: audio/mpeg` ![audio](RenduTD/TP2/network-audio-content-type.png).
 - **Flux** : upload = `choose()` → `TrackService.upload()` (`FormData` avec `audio` et `title`) → `POST /api/tracks`. Lecture = `TrackService.audio()` (Blob via `HttpClient`) → `URL.createObjectURL` → `<audio>`.
 - **Pourquoi un Blob** : une URL placée directement dans `src` est chargée par le navigateur hors d'`HttpClient`, donc l'intercepteur n'ajoute pas l'en-tête `Authorization`.
 - **Validation frontend vs backend** : le frontend améliore l'expérience, mais peut être contourné ; seul le backend protège réellement.
