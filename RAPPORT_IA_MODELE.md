@@ -1,15 +1,15 @@
 # Rapport d'usage de l'IA — TP1, TP2, TP3
 
 ## Modèle utilisé
-Claude (Anthropic) dans Claude.ai.Claude Sonnet 5.5,
+   Claude (Anthropic) dans Claude.ai, modèle : Claude Sonnet 5.5.
 Je n'ai pas de compteur de tokens visible dans l'interface claude.ai ; je n'ai donc pas de
 chiffre exact. La consommation détaillée est disponible via l'API Anthropic (docs.claude.com).
 
-**Méthode de travail** :j'ai utilisé l'assistant comme un guide pour comprendre l'architecture du
+**Méthode de travail** : j'ai utilisé l'assistant comme un guide pour comprendre l'architecture du
 projet et obtenir des exemples de code par étapes. Je n'ai rien appliqué sans le tester : chaque
 bloc a été intégré dans VS Code, vérifié dans le navigateur et dans les DevTools, puis corrigé
 quand il ne fonctionnait pas. J'ai identifié moi-même plusieurs problèmes (affichage du menu
-après rechargement, recherche limitée à la page courante, configuration de test) et j'ai décidé
+après rechargement, recherche limitée à la page courante, ) et j'ai décidé
 du design de l'interface. Je travaille seule (monôme).
 
 ---
@@ -83,7 +83,7 @@ Dans le terminal où `npm start` a été lancé pour `backend/` : lignes `[http]
 - **Proposé par l'agent** : `TrackService.delete()`, confirmation, état anti-double-clic, notification, gestion des 404 et 403.
 - **Choix** : Angular Material n'est pas installé dans le projet, j'ai donc réalisé un SnackBar simple (`SnackbarService` + composant).
 - **Fichiers** : `track.service.ts`, `snackbar.service.ts`, `snackbar.ts`, `tracks-page.ts/.html`.
-- **Preuve** : `DELETE /api/tracks/:id` → 204 ![delete](captures/network-delete.png)
+- **Preuve** : `DELETE /api/tracks/:id` → 204 ![delete](RenduTD/TP3/network-delete.png)
 - **Sécurité** : le guard et l'interface ne protègent que l'affichage ; le backend vérifie le JWT et le propriétaire de la piste.
 
 ## Mission 6 — Progression de l'upload
@@ -92,10 +92,10 @@ Dans le terminal où `npm start` a été lancé pour `backend/` : lignes `[http]
 
 ## Mission 7 — Tests
 - 3 fichiers, 5 tests : `track.service.spec.ts` (page/limit, DELETE), `auth.service.spec.ts` (POST login), `auth.interceptor.spec.ts` (header présent/absent).
-- Résultat attendu : tous verts. Résultat observé : `Test Files 3 passed, Tests 5 passed` ![tests](captures/tests-frontend.png)
+- Résultat attendu : tous verts. Résultat observé : `Test Files 3 passed, Tests 5 passed` ![tests](RenduTD/TP3/tests-frontend.png)
 - Problèmes rencontrés : paquet `jsdom` manquant (installé) et configuration `development` absente dans `angular.json` (ajoutée).
 - Les tests simulent le HTTP : ni backend ni MongoDB nécessaires.
-- - `npm run build` : réussi, sans erreur (`Application bundle generation complete`, sortie dans `dist/gpc`) ![build](captures/build-frontend.png)
-
+  `- `npm run build : réussi, sans erreur (`Application bundle generation complete`, sortie dans `dist/gpc`) ![build](RenduTD/TP3/build-frontend.png)
+Je sais expliquer pourquoi la suppression passe par TrackService et pourquoi seul le backend sécurise vraiment l’opération.
 ## Ajouts personnels (hors sujet)
 Thème violet avec mode sombre, recherche par titre sur toute la bibliothèque, badge de format, notes de musique animées en fond.
