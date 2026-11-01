@@ -95,7 +95,7 @@ Dans le terminal où `npm start` a été lancé pour `backend/` : lignes `[http]
 - Résultat attendu : tous verts. Résultat observé : `Test Files 3 passed, Tests 5 passed` ![tests](captures/tests-frontend.png)
 - Problèmes rencontrés : paquet `jsdom` manquant (installé) et configuration `development` absente dans `angular.json` (ajoutée).
 - Les tests simulent le HTTP : ni backend ni MongoDB nécessaires.
-- `npm run build` : **[À COMPLÉTER après exécution]**
+- - `npm run build` : réussi, sans erreur (`Application bundle generation complete`, sortie dans `dist/gpc`) ![build](captures/build-frontend.png)
 
 ## Ajouts personnels (hors sujet)
 Thème violet avec mode sombre, recherche par titre sur toute la bibliothèque, badge de format, notes de musique animées en fond.
