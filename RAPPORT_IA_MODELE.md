@@ -1,7 +1,7 @@
 # Rapport d'usage de l'IA — TP1, TP2, TP3
 
 ## Modèle utilisé
-Claude (Anthropic) dans Claude.ai.
+Claude (Anthropic) dans Claude.ai.Claude Sonnet 5.5,
 Je n'ai pas de compteur de tokens visible dans l'interface claude.ai ; je n'ai donc pas de
 chiffre exact. La consommation détaillée est disponible via l'API Anthropic (docs.claude.com).
 
