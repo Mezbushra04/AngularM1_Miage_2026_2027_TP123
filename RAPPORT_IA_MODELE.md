@@ -27,7 +27,7 @@ du design de l'interface. Je travaille seule (monôme).
 
 ## Mission 0 — Cartographie
 - **Objectif** : repérer composant racine, routes, `HttpClient`, intercepteur JWT.
-- **Proposé par l'agent** : tableau récapitulatif et schéma du flux de connexion (2 images dans `captures/`).
+- **Proposé par l'agent** : tableau récapitulatif et schéma du flux de connexion (2 images dans RenduTD/TP1/).
 - **Vérification** : relecture des fichiers cités. Aucun fichier modifié.
 
 ## Mission 1 — Inscription, connexion, profil
@@ -95,7 +95,7 @@ Dans le terminal où `npm start` a été lancé pour `backend/` : lignes `[http]
 - Résultat attendu : tous verts. Résultat observé : `Test Files 3 passed, Tests 5 passed` ![tests](RenduTD/TP3/tests-frontend.png)
 - Problèmes rencontrés : paquet `jsdom` manquant (installé) et configuration `development` absente dans `angular.json` (ajoutée).
 - Les tests simulent le HTTP : ni backend ni MongoDB nécessaires.
-  `- `npm run build : réussi, sans erreur (`Application bundle generation complete`, sortie dans `dist/gpc`) ![build](RenduTD/TP3/build-frontend.png)
-Je sais expliquer pourquoi la suppression passe par TrackService et pourquoi seul le backend sécurise vraiment l’opération.
+     - `npm run build` : réussi, sans erreur (`Application bundle generation complete`, sortie dans `dist/gpc`) ![build](RenduTD/TP3/build-frontend.png)
+   - Je sais expliquer pourquoi la suppression passe par `TrackService` et pourquoi seul le backend sécurise vraiment l'opération.
 ## Ajouts personnels (hors sujet)
 Thème violet avec mode sombre, recherche par titre sur toute la bibliothèque, badge de format, notes de musique animées en fond.
