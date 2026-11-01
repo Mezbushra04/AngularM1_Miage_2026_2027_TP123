@@ -9,7 +9,7 @@ chiffre exact. La consommation détaillée est disponible via l'API Anthropic (d
 projet et obtenir des exemples de code par étapes. Je n'ai rien appliqué sans le tester : chaque
 bloc a été intégré dans VS Code, vérifié dans le navigateur et dans les DevTools, puis corrigé
 quand il ne fonctionnait pas. J'ai identifié moi-même plusieurs problèmes (affichage du menu
-après rechargement, recherche limitée à la page courante, ) et j'ai décidé
+après rechargement, recherche limitée à la page courante), et j'ai décidé
 du design de l'interface. Je travaille seule (monôme).
 
 ---
@@ -27,7 +27,10 @@ du design de l'interface. Je travaille seule (monôme).
 
 ## Mission 0 — Cartographie
 - **Objectif** : repérer composant racine, routes, `HttpClient`, intercepteur JWT.
-- **Proposé par l'agent** : tableau récapitulatif et schéma du flux de connexion (2 images dans RenduTD/TP1/).
+- **Proposé par l'agent** : tableau récapitulatif et schéma du flux de connexion (2 images dans `RenduTD/TP1/`).
+
+![Flux frontend](RenduTD/TP1/flux_connexion_frontend.png)
+![Flux backend et retour](RenduTD/TP1/flux_connexion_backend_retour.png)
 - **Vérification** : relecture des fichiers cités. Aucun fichier modifié.
 
 ## Mission 1 — Inscription, connexion, profil
